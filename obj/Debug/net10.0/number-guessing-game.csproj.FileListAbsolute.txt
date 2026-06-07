@@ -12,3 +12,4 @@ C:\Users\tarsi\Code\Repos\number-guessing-game\obj\Debug\net10.0\refint\number-g
 C:\Users\tarsi\Code\Repos\number-guessing-game\obj\Debug\net10.0\number-guessing-game.pdb
 C:\Users\tarsi\Code\Repos\number-guessing-game\obj\Debug\net10.0\number-guessing-game.genruntimeconfig.cache
 C:\Users\tarsi\Code\Repos\number-guessing-game\obj\Debug\net10.0\ref\number-guessing-game.dll
+C:\Users\tarsi\Code\Repos\number-guessing-game\obj\Debug\net10.0\number-guessing-game.sourcelink.json

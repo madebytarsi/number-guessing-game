@@ -4,45 +4,48 @@
     {
         static void Main(string[] args)
         {
-            bool keepPlaying = true;
-            int attempts = 0;
-            int attemptsLimit = 5;
-            int range = 0;
+            int[] settings = SelectDifficulty();
 
-            Console.WriteLine("Inform the level you want to play: ");
-            Console.WriteLine("1 - Easy (10 attempts)");
-            Console.WriteLine("2 - Medium (5 attempts)");
-            Console.WriteLine("3 - Hard  (3 attempts)");
-            
+            int range = settings[0];
+            int attemptsLimit = settings[1];
+
+            PlayGame(range, attemptsLimit);
+        }  
+    
+        static int[] SelectDifficulty()
+        {
+            Console.WriteLine("Select a difficulty:");
+            Console.WriteLine("1 - Easy   (0-100, 10 attempts)");
+            Console.WriteLine("2 - Medium (0-150, 5 attempts)");
+            Console.WriteLine("3 - Hard   (0-200, 3 attempts)");
+
             Console.Write("Inform a level: ");
-            int gameLevel = Convert.ToInt16(Console.ReadLine());
+            int gameLevel = Convert.ToInt32(Console.ReadLine());
 
             if (gameLevel == 1)
             {
-                range = 100;
-                attemptsLimit = 10;
+                return new int[] {100, 10};
             } else if (gameLevel == 2)
             {
-                range = 150;
-                attemptsLimit = 5;
+                return new int[] {150, 5};
             } else
             {
-                range = 200;
-                attemptsLimit = 3;
+                return new int[] {200, 3};
             }
-
-            // generates the random number
+        }
+    
+        static void PlayGame(int range, int attemptsLimit)
+        {
             Random rand = new Random();
             int number = rand.Next(range + 1);
 
-            Console.WriteLine(number);  // for testing
+            Console.WriteLine(number); // testing
 
-            int remainingAttempts = attemptsLimit;
+            int attempts = 0;
+            bool keepPlaying = true;
 
-            while (keepPlaying && remainingAttempts != 0)
+            while (keepPlaying && attempts < attemptsLimit)
             {
-                remainingAttempts = attemptsLimit - attempts;
-
                 Console.Write("\nInform a number: ");
                 int userGuess = Convert.ToInt32(Console.ReadLine());
 
@@ -53,21 +56,23 @@
                     Console.WriteLine($"\nYou win! The number was {number}");
                     Console.WriteLine($"You guessed the correct number in {attempts} attempts.");
                     keepPlaying = false;
-                } else if (userGuess > number)
+                }
+                else if (userGuess > number)
                 {
                     Console.WriteLine("\nToo high.");
-                    Console.WriteLine($"You have {remainingAttempts} attemps remaining...");
-                } else if (userGuess < number)
+                    Console.WriteLine($"You have {attemptsLimit - attempts} attempts remaining...");
+                }
+                else
                 {
                     Console.WriteLine("\nToo low.");
-                    Console.WriteLine($"You have {remainingAttempts} attemps remaining...");
+                    Console.WriteLine($"You have {attemptsLimit - attempts} attempts remaining...");
                 }
             }
-
-            if (remainingAttempts == 0)
+            if (attempts == attemptsLimit && keepPlaying)
             {
-                Console.WriteLine($"\nYou reached the limit of attempts to guess the number.\nThe number was {number}");
+                Console.WriteLine($"\nYou reached the limit of attempts.");
+                Console.WriteLine($"The number was {number}");
             }
-        }  
+        }
     }
 }
